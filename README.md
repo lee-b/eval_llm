@@ -35,7 +35,7 @@ Alternatively, refer to the [official Poetry installation guide](https://python-
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/eval-llm.git
+git clone https://github.com/lee-b/eval-llm.git
 cd eval-llm
 ```
 
@@ -55,18 +55,22 @@ Ensure that you have both the test LLM and evaluation LLM servers running and ac
 
 #### Test LLM Server
 
+This is the LLM being tested.
+
 Start your test LLM server (adjust the command according to your setup):
 
 ```bash
-./llama.cpp --server --host 0.0.0.0 --port 8000 --endpoint /test_llm
+./llama.cpp --server --host 0.0.0.0 --port 8000 your_test_llm.gguf
 ```
 
 #### Evaluation LLM Server
 
+This is the LLM that will do the evaluation of the test LLM.
+
 Start your evaluation LLM server with support for JSON schema constraints:
 
 ```bash
-./llama.cpp --server --host 0.0.0.0 --port 8000 --endpoint /evaluation_llm
+./llama.cpp --server --host 0.0.0.0 --port 8001 --endpoint your_evaluation_llm.gguf
 ```
 
 **Note:** Ensure your `llama.cpp` version supports the `response_format` parameter with JSON schemas.
@@ -77,7 +81,7 @@ Create a YAML configuration file (e.g., `config.yaml`) in your working directory
 
 ```yaml
 TEST_LLM_BASE_URL: "http://localhost:8000/test_llm"
-EVALUATION_LLM_BASE_URL: "http://localhost:8000/evaluation_llm"
+EVALUATION_LLM_BASE_URL: "http://localhost:8001/evaluation_llm"
 
 datasets:
   - name: "General Knowledge Questions"
